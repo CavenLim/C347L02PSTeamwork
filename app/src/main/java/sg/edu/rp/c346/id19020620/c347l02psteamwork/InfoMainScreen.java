@@ -69,7 +69,29 @@ public class InfoMainScreen extends AppCompatActivity {
             }
         });
 
+        // Email Button
 
+        btnEmail = (Button) this.findViewById(R.id.buttonEmail);
+        btnEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent email = new Intent(Intent.ACTION_SEND);
+                email.putExtra(Intent.EXTRA_EMAIL,
+                        new String[]{"jason_lim@rp.edu.sg"});
+
+                String text = "Hi faci, I am ...\n"  + "Please see my remarks so far thank you!\n\n";
+                for(int i = 0; i <module.size();i++){
+                    text += "Week " + (i + 1) + ": DG: " +module.get(i).getModuleGrade() + "\n";
+                }
+
+                email.putExtra(Intent.EXTRA_TEXT,
+                        text);
+                email.setType("message/rfc822");
+                startActivity(Intent.createChooser(email,
+                        "Choose an Email client :"));
+
+            }
+        });
 
 
     }
@@ -91,8 +113,6 @@ public class InfoMainScreen extends AppCompatActivity {
                 }
                 // If 2nd activity started by clicking
                 //  Batman, create a corresponding String
-
-
 
             }
         }
