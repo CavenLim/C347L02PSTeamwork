@@ -25,5 +25,16 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, al);
         lv.setAdapter(adapter);
+
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String selectedModule = al.get(i);
+                Intent intent = new Intent(MainActivity.this,InfoMainScreen.class);
+                intent.putExtra("module",selectedModule);
+                startActivity(intent);
+            }
+        });
     }
 }
