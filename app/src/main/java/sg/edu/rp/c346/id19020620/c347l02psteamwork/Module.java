@@ -6,7 +6,7 @@ public class Module {
     private int moduleWeek;
     private String moduleGrade;
 
-    public Module(int moduleWeek, String moduleGrade) {
+    public Module(String c347, int moduleWeek, String moduleGrade) {
 
         this.moduleWeek = moduleWeek;
         this.moduleGrade = moduleGrade;

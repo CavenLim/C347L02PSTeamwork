@@ -6,18 +6,16 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class InfoMainScreen extends AppCompatActivity {
 
     //---------------------Initial Setting--------------
-    Button btnRP, btnEmail;
-
+    Button btnRP, btnEmail,btnAdd;
+    int requestCodeForC347 = 1;
     ListView lv;
     CustomAdapter aa;
     ArrayList<Module> module;
@@ -34,9 +32,9 @@ public class InfoMainScreen extends AppCompatActivity {
 
         //Create Food item/object in Food array
         module = new ArrayList<>();
-        module.add(new Module( 1, "B"));
-        module.add(new Module( 2, "C"));
-        module.add(new Module(3, "A"));
+        module.add(new Module("c347", 1, "B"));
+        module.add(new Module("c347", 2, "C"));
+        module.add(new Module("c347", 3, "A"));
 
         //Link this Activity object, the row.xml layout for each
         //row and the food String array together
@@ -59,8 +57,44 @@ public class InfoMainScreen extends AppCompatActivity {
         });
         //---------------------Website Button--------------
 
+        btnAdd = (Button) this.findViewById(R.id.buttonAdd);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(InfoMainScreen.this,addData.class);
+
+                intent.putExtra("arrayCount",module.size()+1);
+
+                startActivityForResult(intent,requestCodeForC347);
+            }
+        });
 
 
 
+
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Only handle when 2nd activity closed normally
+        //  and data contains something
+        if(resultCode == RESULT_OK){
+            if (data != null) {
+                // Get data passed back from 2nd activity
+                String grade = data.getStringExtra("grade");
+
+                // If it is activity started by clicking 				//  Superman, create corresponding String
+                if(requestCode == requestCodeForC347){
+                    module.add(new Module("c347",module.size()+1,grade));
+                    aa.notifyDataSetChanged();
+                }
+                // If 2nd activity started by clicking
+                //  Batman, create a corresponding String
+
+
+
+            }
+        }
     }
 }
